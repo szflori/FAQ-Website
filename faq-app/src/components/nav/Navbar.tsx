@@ -7,11 +7,11 @@ const Navbar: React.FC = () => {
   return (
     <nav className="nav-container">
       <div className="right-wrapper">
-        <MdOutlineQuestionAnswer />
+        <MdOutlineQuestionAnswer className="logo-icon"/>
         <h3>FAQ</h3>
       </div>
       <div className="left-wrapper">
-        <BiMenu />
+        <BiMenu className="menu-icon"/>
       </div>
     </nav>
   );

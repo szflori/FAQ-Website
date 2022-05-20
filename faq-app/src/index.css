@@ -13,6 +13,7 @@
 :root{
   --color-ui-bg: #121314;
   --color-ui-section-bg: #222327;
+  --color-ui-light-section-bg: #42444b;
   --color-ui-primary:#00C56D;
   --color-ui-danger: #AA2727;
   --color-ui-secondary: #006838;
