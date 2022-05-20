@@ -1,20 +1,31 @@
-import React from 'react'
-import Question from '../components/question/Question'
+import React, { useState } from "react";
+import ListQuestion from "../components/question/ListQuestion";
+import QuestionForm from "../components/question/QuestionForm";
+import Question from "../models/question";
+
+import "./home.css";
 
 const Home: React.FC = () => {
-    const timeElapsed = Date.now();
-const today = new Date(timeElapsed);
-  return (
-    <div>
-        <div className="header-wrapper">
-            <h3>All Questions</h3>
-            <button>Ask Question</button>
-        </div>
-        <div className="main-wrapper">
-            <Question answer={2} title="What is Lorem ipsu" user='Test' creaDate={today}/>
-        </div>
-    </div>
-  )
-}
+  const [askNew, setAskNew] = useState<boolean>();
+  const [questions, setQuestions] = useState<Question[]>([]);
 
-export default Home
+  const addQuestionHandler = (question: Question) => {
+    setQuestions((prevQuestions) => {
+      setAskNew(!askNew);
+      return prevQuestions.concat(question);
+    });
+  };
+  return (
+    <div className="home-container">
+      <div className="header-wrapper">
+        <h2>All Questions</h2>
+        <button onClick={() => setAskNew(!askNew)}>Ask Question</button>
+      </div>
+      {askNew && <QuestionForm onAddQuestion={addQuestionHandler} />}
+
+      <ListQuestion items={questions} />
+    </div>
+  );
+};
+
+export default Home;

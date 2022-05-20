@@ -1,10 +1,13 @@
-import React from "react";
+import React from 'react'
 
-const Question: React.FC<{answer: number, title:string, user: string, creaDate: Date}> = (props) => {
+import "./question.css";
+
+const ViewQuestion: React.FC<{answer: number, title: string, user: string, creaDate: Date}> = (props) => {
   return (
-    <div>
+    <div className="question-container">
       <div className="q-info-wrapper">
-        <span>{`${props.answer} answer`}</span>
+        <span>{props.answer}</span>
+        <span>answer</span>
       </div>
       <div className="q-main-wrapper">
         <div className="text-section">
@@ -16,7 +19,7 @@ const Question: React.FC<{answer: number, title:string, user: string, creaDate: 
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Question;
+export default ViewQuestion

@@ -11,8 +11,13 @@
 }
 
 :root{
-  --color-bg: #121314;
-  --color-bg-variant: #222327;
+  --color-ui-bg: #121314;
+  --color-ui-section-bg: #222327;
+  --color-ui-primary:#00C56D;
+  --color-ui-danger: #AA2727;
+  --color-ui-secondary: #006838;
+  --color-ui-text: #efefef;
+  --color-ui-h: #ffffff;
 }
 
 html{
@@ -21,4 +26,12 @@ html{
 
 body{
   font-family: "Source Sans Pro", sans-serif;
+  background: var(--color-ui-bg);
+  color: var(--color-ui-text);
+}
+
+.App{
+  display: grid;
+  align-items: center;
+  justify-content: center;
 }
