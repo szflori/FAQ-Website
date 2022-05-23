@@ -1,9 +1,11 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import Question from "../../models/question";
+import { QuestionContext } from "../../store/question-context";
 
 import "./questionForm.css";
 
-const QuestionForm: React.FC<{onAddQuestion: (question: Question) => void}> = (props) => {
+const QuestionForm: React.FC = (props) => {
+  const questionCtx = useContext(QuestionContext);
   const titleTextHandlerRef = useRef<HTMLInputElement>(null);
   const bodyTextHandlerRef = useRef<HTMLInputElement>(null);
 
@@ -14,7 +16,7 @@ const QuestionForm: React.FC<{onAddQuestion: (question: Question) => void}> = (p
     const enteredBodyText = bodyTextHandlerRef.current!.value;
     const question = new Question(enteredTitle, enteredBodyText);
 
-    props.onAddQuestion(question);
+    questionCtx.onCreate(question);
 
   };
   return (

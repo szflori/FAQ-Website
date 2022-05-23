@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { FiDelete } from "react-icons/fi";
-import Answer from "../../models/answer";
-import ItemAnswer from "../answer/ItemAnswer";
 import CreateAnswer from "../answer/CreateAnswer";
 import "./itemQuestion.css";
 import ListAnswer from "../answer/ListAnswer";
+import AnswerContextProvider from "../../store/answer-context";
 
 const ItemQuestion: React.FC<{
   answer: number;
@@ -13,16 +12,10 @@ const ItemQuestion: React.FC<{
   createDate: Date;
 }> = (props) => {
   const [addAnswer, setAddAnswer] = useState<boolean>();
-  const [answers, setAnswers] = useState<Answer[]>([]);
-
-  const addAnswerHandler = (answer: Answer) => {
-    setAnswers((prevAnswers) => {
-      setAddAnswer(!addAnswer);
-      return prevAnswers.concat(answer);
-    });
-  };
+  
 
   return (
+    <AnswerContextProvider>
     <div className="item-container">
       <div className="item-header">
         <div className="info-wrapper">
@@ -32,9 +25,7 @@ const ItemQuestion: React.FC<{
         </div>
         <div className="action-wrapper">
           <button>MOD</button>
-          <button>
-            <FiDelete />
-          </button>
+            <FiDelete />    
         </div>
       </div>
       <div className="item-body">
@@ -44,13 +35,14 @@ const ItemQuestion: React.FC<{
         <span>{`${props.answer} answer`}</span>
       </div>
       <div className="answer-list">
-        <ListAnswer items={answers}/>
+        <ListAnswer />
       </div>
-      {addAnswer && <CreateAnswer onAddAnswer={addAnswerHandler}/>}
+      {addAnswer && <CreateAnswer/>}
       <div className="answer-footer">
         <button onClick={() => setAddAnswer(!addAnswer)}>Add answer</button>
       </div>
     </div>
+    </AnswerContextProvider>
   );
 };
 

@@ -1,10 +1,13 @@
 import React from "react";
-
+import { FiDelete } from "react-icons/fi";
 import "./ItemAnswer.css";
 
-const ItemAnswer: React.FC<{ user: string; createDate: Date; text: string }> = (
-  props
-) => {
+const ItemAnswer: React.FC<{
+  user: string;
+  createDate: Date;
+  text: string;
+  onRemoveAnswer: () => void;
+}> = (props) => {
   return (
     <div className="answer-container">
       <div className="answer-header">
@@ -14,7 +17,7 @@ const ItemAnswer: React.FC<{ user: string; createDate: Date; text: string }> = (
         </div>
         <div className="action-toggle">
           <button>MOD</button>
-          <button>DEL</button>
+          <FiDelete onClick={props.onRemoveAnswer} />
         </div>
       </div>
       <div className="answer-main">

@@ -1,14 +1,14 @@
 class User{
     id: number;
-    name: string;
+    username: string;
     email: string;
-    gender: string;
+    password: string
 
-    constructor(name: string, email: string, gender: string){
+    constructor(username: string, email: string, password: string){
         this.id = Math.random();
-        this.name = name;
+        this.username = username;
         this.email = email;
-        this.gender = gender;
+        this.password = password;
     }
 
 }

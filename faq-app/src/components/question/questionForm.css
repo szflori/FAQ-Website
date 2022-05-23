@@ -7,11 +7,7 @@
     border-radius: 2px;
 }
 
-form{
-    display: grid;
-    gap: 20px;
-    width: 450px;
-}
+
 .form-group{
     display: grid;
     gap: 5px;

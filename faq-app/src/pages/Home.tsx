@@ -2,29 +2,27 @@ import React, { useState } from "react";
 import ListQuestion from "../components/question/ListQuestion";
 import QuestionForm from "../components/question/QuestionForm";
 import Question from "../models/question";
+import QuestionContextProvider from "../store/question-context";
 
 import "./home.css";
 
 const Home: React.FC = () => {
   const [askNew, setAskNew] = useState<boolean>();
-  const [questions, setQuestions] = useState<Question[]>([]);
+ 
 
-  const addQuestionHandler = (question: Question) => {
-    setQuestions((prevQuestions) => {
-      setAskNew(!askNew);
-      return prevQuestions.concat(question);
-    });
-  };
+
   return (
+    <QuestionContextProvider>
     <div className="home-container">
       <div className="header-wrapper">
         <h2>All Questions</h2>
         <button onClick={() => setAskNew(!askNew)}>Ask Question</button>
       </div>
-      {askNew && <QuestionForm onAddQuestion={addQuestionHandler} />}
+      {askNew && <QuestionForm/>}
 
-      <ListQuestion items={questions} />
+      <ListQuestion/>
     </div>
+    </QuestionContextProvider>
   );
 };
 

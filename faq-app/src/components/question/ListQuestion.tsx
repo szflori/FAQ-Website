@@ -1,13 +1,14 @@
-import React from 'react'
-import Question from '../../models/question'
-import ViewQuestion from './ViewQuestion'
+import React, {useContext} from 'react'
+import ViewQuestion from './ViewQuestion';
+import { QuestionContext } from '../../store/question-context';
 
-const ListQuestion: React.FC<{items: Question[]}> = (props) => {
+const ListQuestion: React.FC = (props) => {
+  const questionCtx = useContext(QuestionContext);
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed);
   return (
     <div className="main-wrapper">
-        {props.items.map((item) => (
+        {questionCtx.items.map((item) => (
             <ViewQuestion answer={2} title={item.questionTitle} user="test" creaDate={today}/>
         ))}
     </div>

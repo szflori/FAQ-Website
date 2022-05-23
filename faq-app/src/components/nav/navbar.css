@@ -3,20 +3,44 @@
     height: 52px;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    gap: 250px;
     align-items: center;
     justify-content: center;
-    padding: 5px 5px;
     background: var(--color-ui-section-bg);
-}
-
-.right-wrapper{
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .left-wrapper{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.right-wrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-toggle{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-icon{
+    display: none;
+}
+
+@media screen and (max-width: 800px) {
+    .menu-icon{
+        display: flex;
+    }
+
+    .fill-button, .out-button{
+        display: none;
+    }
 }

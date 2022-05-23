@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom';
 import "./question.css";
 
 const ViewQuestion: React.FC<{answer: number, title: string, user: string, creaDate: Date}> = (props) => {
@@ -11,7 +11,7 @@ const ViewQuestion: React.FC<{answer: number, title: string, user: string, creaD
       </div>
       <div className="q-main-wrapper">
         <div className="text-section">
-          <h4>{props.title}</h4>
+          <Link to="/quest/2">{props.title}</Link>
         </div>
         <div className="crt-inf-section">
             <span>{props.user}</span>

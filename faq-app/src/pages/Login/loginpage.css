@@ -1,0 +1,70 @@
+.login-index {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  display: grid;
+  width: 370px;
+  gap: 25px;
+  align-items: center;
+  justify-content: center;
+  padding: 25px 25px;
+  background: var(--color-ui-section-bg);
+  border-radius: 2px;
+}
+
+.login-main-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-wrapper {
+  width: 270px;
+  display: grid;
+  gap: 25px;
+}
+
+.form-group {
+  display: grid;
+  gap: 7px;
+}
+.textfield {
+  display: grid;
+  align-items: center;
+  justify-content: start;
+  padding: 10px 10px;
+  background: var(--color-ui-h);
+}
+
+.input-control {
+  border: none;
+  background: transparent;
+}
+
+.fill-button {
+  padding: 7px 15px;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-ui-primary);
+  border-radius: 2px;
+}
+
+.signup-link {
+  margin-left: 5px;
+  color: var(--color-ui-primary);
+}
+
+@media screen and (max-width: 775px) {
+  .login-container {
+    width: 300px;
+  }
+
+  .form-wrapper {
+    width: 170px;
+  }
+}
