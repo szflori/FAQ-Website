@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Question from "../models/question";
 
 type QuestionContextObj = {
@@ -21,6 +21,11 @@ export const QuestionContext = React.createContext<QuestionContextObj>({
 
 const QuestionContextProvider: React.FC<Props> = ({ children }) => {
   const [questions, setQuestions] = useState<Question[]>([]);
+
+  useEffect(() => {
+    localStorage.setItem("questions", JSON.stringify(questions));
+  }, [questions]);
+
 
   const addQuestionHandler = (question: Question) => {
     setQuestions((prevQuestions) => {

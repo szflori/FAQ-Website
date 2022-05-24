@@ -1,8 +1,28 @@
-import React from "react";
-
+import React, { useRef, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../store/auth-contex";
 import "./loginpage.css";
 
 const LoginPage: React.FC = () => {
+  const authCtx = useContext(AuthContext);
+  const usernameTextHandlerRef = useRef<HTMLInputElement>(null);
+  const passwordTextHandlerRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
+
+  const loginHandler = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const enteredUserName = usernameTextHandlerRef.current!.value;
+    const enteredPassword = passwordTextHandlerRef.current!.value;
+
+    authCtx.onValid(enteredUserName, enteredPassword);
+
+    if (authCtx.isLogged) {
+      navigate("/home");
+    } else {
+      console.log("Error");
+    }
+  };
   return (
     <div className="login-index">
       <div className="login-container">
@@ -18,6 +38,7 @@ const LoginPage: React.FC = () => {
                   type="text"
                   placeholder="Username or email"
                   className="input-control"
+                  ref={usernameTextHandlerRef}
                 />
               </div>
             </div>
@@ -28,15 +49,19 @@ const LoginPage: React.FC = () => {
                   type="password"
                   placeholder="Password"
                   className="input-control"
+                  ref={passwordTextHandlerRef}
                 />
               </div>
             </div>
-            <button className="fill-button log">Log in</button>
+            <button onClick={loginHandler} className="fill-button log">Log in</button>
           </form>
         </div>
         <div className="footer-wrappre">
           <span>
-            Don't have account? <a className="signup-link">Sign up</a>
+            Don't have account?{" "}
+            <Link to="/singup" className="signup-link">
+              Sign up
+            </Link>
           </span>
         </div>
       </div>
