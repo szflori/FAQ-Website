@@ -1,20 +1,22 @@
 import React, { useRef, useContext } from "react";
 import Answer from "../../models/answer";
 import { AnswerContext } from "../../store/answer-context";
+import { AuthContext } from "../../store/auth-contex";
+import { QuestionContext } from "../../store/question-context";
 
-const CreateAnswer: React.FC = (
-  props
-) => {
+const CreateAnswer: React.FC = () => {
   const answerCtx = useContext(AnswerContext);
+  const authCtx = useContext(AuthContext);
+  const questionCtx = useContext(QuestionContext);
   const textBodyTextHandlerRef = useRef<HTMLInputElement>(null);
 
   const submitAnswerHandler = (event: React.FormEvent) => {
     event.preventDefault();
 
     const enteredTextBody = textBodyTextHandlerRef.current!.value;
-    const answer = new Answer(enteredTextBody);
+    const answer = new Answer(authCtx.profile!, questionCtx.item!, enteredTextBody, 2, 2);
 
-    answerCtx.addItem(answer);
+    answerCtx.onSave(answer);
   };
   return (
     <div>

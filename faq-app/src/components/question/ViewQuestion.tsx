@@ -2,11 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import "./question.css";
 
-const ViewQuestion: React.FC<{id: number, answer: number, title: string, user: string, creaDate: Date}> = (props) => {
+const ViewQuestion: React.FC<{id: number, answerCount: number, title: string, user: string, creaDate: Date}> = (props) => {
   return (
     <div className="question-container">
       <div className="q-info-wrapper">
-        <span>{props.answer}</span>
+        <span>{props.answerCount}</span>
         <span>answer</span>
       </div>
       <div className="q-main-wrapper">

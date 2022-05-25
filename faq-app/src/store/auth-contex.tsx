@@ -1,81 +1,96 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import User from "../models/user";
-import { usersTest } from "../Dummy_Data";
-
-type AuthContextObj = {
-  isLogged: boolean;
-  user: User | undefined;
-  items: User[];
-  onCreate: (user: User) => void;
-  onUpdate: (id: number, user: User) => void;
-  onDelete: (id: number) => void;
-  onValid: (username: string, password: string) => void;
-};
 
 type Props = {
   children: React.ReactNode;
 };
 
+type AuthContextObj = {
+  isLoggedIn: boolean | undefined;
+  profile: User | undefined;
+  users: User[] | undefined;
+  onLogout: () => void;
+  onLogin: (emailOrUsername: string, password: string) => void;
+  onSignup: (user: User) => void;
+};
+
 export const AuthContext = React.createContext<AuthContextObj>({
-  isLogged: false,
-  user: undefined,
-  items: [],
-  onCreate: () => {},
-  onUpdate: () => {},
-  onDelete: (id: number) => {},
-  onValid: () => {},
+  isLoggedIn: false,
+  profile: undefined,
+  users: [],
+  onLogout: () => {},
+  onLogin: (emailOrUsername: string, password: string) => {},
+  onSignup: () => {},
 });
 
 const AuthContextProvider: React.FC<Props> = ({ children }) => {
-  const [isLoggedUser, setIsLogged] = useState<boolean>(false);
-  const [user, setUser] = useState<User>();
-  const [users, setUsers] = useState<User[]>([...usersTest]);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>();
+  const [profile, setProfile] = useState<User>();
+  const [regUsers, setRegUsers] = useState<User[]>([]);
 
   useEffect(() => {
-    localStorage.setItem("users", JSON.stringify(users));
-  }, [users]);
+    const storedRegUsersInformation = JSON.parse(
+      localStorage.getItem("regUsers")!
+    );
+    const storedUserLoggedInInformation = localStorage.getItem("isLoggedIn");
 
-  const createUserHandler = (user: User) => {
-    setUsers((prevUsers) => {
-      return prevUsers.concat(user);
-    });
+    if (storedRegUsersInformation) {
+      setRegUsers(storedRegUsersInformation);
+    }
+    if (storedUserLoggedInInformation === "1") {
+      const storedUserLoggedProfileInformation = JSON.parse(
+        localStorage.getItem("isLoggedProfile")!
+      );
+      if (storedRegUsersInformation) {
+        setProfile(storedUserLoggedProfileInformation);
+      }
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  /* 
+  useEffect(() => {
+    localStorage.setItem("regUsers", JSON.stringify(regUsers));
+  }, [regUsers]);
+
+  */
+
+  const logoutHandler = () => {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("isLoggedProfile");
+    setIsLoggedIn(false);
+    setProfile(undefined);
   };
 
-  const updateUserHandler = () => {};
-
-  const deleteUserHandler = (id: number) => {
-    setUsers((prevUsers) => {
-      return prevUsers.filter((user) => user.id !== id);
-    });
-  };
-
-  const loginUserHandler = (username: string, password: string) => {
-    users.filter((user) => {
+  const loginHandler = (emailOrUsername: string, password: string) => {
+    regUsers.map((user) => {
       if (
-        user.username !== username  &&
-        user.password !== password
+        (user.username === emailOrUsername || user.email === emailOrUsername) &&
+        user.password === password
       ) {
-        setIsLogged(!isLoggedUser);
-        setUser(user);
-        console.log("Found" + user.username);
-        
-      } else {
-        console.log("Not found");
-        console.log(password)
+        localStorage.setItem("isLoggedIn", "1");
+        localStorage.setItem("isLoggedProfile", JSON.stringify(user));
+        setIsLoggedIn(true);
+        setProfile(user);
       }
     });
   };
 
-  const contextData: AuthContextObj = {
-    isLogged: isLoggedUser,
-    user: user,
-    items: users,
-    onCreate: createUserHandler,
-    onUpdate: updateUserHandler,
-    onDelete: deleteUserHandler,
-    onValid: loginUserHandler,
+  const signupHandler = (user: User) => {
+    setRegUsers((prevRegUsers) => {
+      return prevRegUsers.concat(user);
+    });
+    localStorage.setItem("regUsers", JSON.stringify(regUsers));
   };
 
+  const contextData: AuthContextObj = {
+    isLoggedIn: isLoggedIn,
+    profile: profile,
+    users: regUsers,
+    onLogout: logoutHandler,
+    onLogin: loginHandler,
+    onSignup: signupHandler,
+  };
   return (
     <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
   );

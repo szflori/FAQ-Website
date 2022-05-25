@@ -1,8 +1,9 @@
 import React, { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "../../components/UI/Button/Button";
 import User from "../../models/user";
 import { AuthContext } from "../../store/auth-contex";
-import "./singup.css";
+import "./signup.css";
 
 const SignupPage: React.FC = (props) => {
   const userCtx = useContext(AuthContext);
@@ -19,7 +20,7 @@ const SignupPage: React.FC = (props) => {
     const enteredPassword = passwordTextHandlerRef.current!.value;
     const user = new User(enteredUserName, enteredEmail, enteredPassword);
 
-    userCtx.onCreate(user);
+    userCtx.onSignup(user);
     navigate("/login");
   };
 
@@ -30,7 +31,7 @@ const SignupPage: React.FC = (props) => {
           <h2>Create Account</h2>
         </div>
 
-        <form className="form-item" onSubmit={submitUserHandler}>
+        <form className="form-item">
           <div className="form-group">
             <label>Username</label>
             <div className="textfield">
@@ -71,9 +72,9 @@ const SignupPage: React.FC = (props) => {
               <a className="link">Provacy Policy</a>.
             </span>
           </div>
-          <button type="submit" className="fill-button">
+          <Button type="contained" onAction={submitUserHandler}>
             Sign up
-          </button>
+          </Button>
         </form>
       </div>
     </div>

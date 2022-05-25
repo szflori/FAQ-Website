@@ -4,22 +4,21 @@ import CreateAnswer from "../answer/CreateAnswer";
 import "./itemQuestion.css";
 import ListAnswer from "../answer/ListAnswer";
 import AnswerContextProvider from "../../store/answer-context";
+import Button from "../UI/Button/Button";
 
 const ItemQuestion: React.FC<{title: string, date: Date, username: string, text: string}> = (props) => {
   
   const [addAnswer, setAddAnswer] = useState<boolean>();
 
 
-  //TO DO usePArams add to question id and 
-
   return (
     <AnswerContextProvider>
       <div className="item-container">
         <div className="item-header">
           <div className="info-wrapper">
-            <h3>{}</h3>
-            <span>{}</span>
-            <span>User</span>
+            <h3>{props.title}</h3>
+            <span>{props.date.toISOString()}</span>
+            <span>{props.username}</span>
           </div>
           <div className="action-wrapper">
             <button>MOD</button>
@@ -27,7 +26,7 @@ const ItemQuestion: React.FC<{title: string, date: Date, username: string, text:
           </div>
         </div>
         <div className="item-body">
-          <p>{}</p>
+          <p>{props.text}</p>
         </div>
         <div className="item-footer">
           <span>{}</span>
@@ -37,7 +36,7 @@ const ItemQuestion: React.FC<{title: string, date: Date, username: string, text:
         </div>
         {addAnswer && <CreateAnswer />}
         <div className="answer-footer">
-          <button onClick={() => setAddAnswer(!addAnswer)}>Add answer</button>
+          <Button type="outlined" onAction={() => setAddAnswer(!addAnswer)}>Add answer</Button>
         </div>
       </div>
     </AnswerContextProvider>

@@ -1,5 +1,6 @@
 import React, { useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Button from "../../components/UI/Button/Button";
 import { AuthContext } from "../../store/auth-contex";
 import "./loginpage.css";
 
@@ -15,9 +16,9 @@ const LoginPage: React.FC = () => {
     const enteredUserName = usernameTextHandlerRef.current!.value;
     const enteredPassword = passwordTextHandlerRef.current!.value;
 
-    authCtx.onValid(enteredUserName, enteredPassword);
+    authCtx.onLogin(enteredUserName, enteredPassword);
 
-    if (authCtx.isLogged) {
+    if (authCtx.isLoggedIn) {
       navigate("/home");
     } else {
       console.log("Error");
@@ -53,7 +54,7 @@ const LoginPage: React.FC = () => {
                 />
               </div>
             </div>
-            <button onClick={loginHandler} className="fill-button log">Log in</button>
+            <Button type="contained" onAction={loginHandler}>Log in</Button>
           </form>
         </div>
         <div className="footer-wrappre">

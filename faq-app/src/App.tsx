@@ -1,25 +1,29 @@
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/nav/Navbar";
-import Home from "./pages/Home";
-import ListAnswers from "./pages/ListAnswers";
+import Home from "./pages/Home/Home";
+import ListAnswers from "./pages/List/ListAnswers";
 import LoginPage from "./pages/Login/LoginPage";
-import SingupPage from "./pages/Signup/SingupPage";
+import SignupPage from "./pages/Signup/SignupPage";
+import AnswerContextProvider from "./store/answer-context";
 import AuthContextProvider from "./store/auth-contex";
+import QuestionContextProvider from "./store/question-context";
 
 function App() {
   return (
     <>
       <AuthContextProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/singup" element={<SingupPage />} />
-            <Route path="/quest/:id" element={<ListAnswers />} />
-          </Routes>
-        </BrowserRouter>
+        <QuestionContextProvider>
+          <AnswerContextProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignupPage />} />
+                <Route path="/quest/:id" element={<ListAnswers />} />
+              </Routes>
+            </BrowserRouter>
+          </AnswerContextProvider>
+        </QuestionContextProvider>
       </AuthContextProvider>
     </>
   );

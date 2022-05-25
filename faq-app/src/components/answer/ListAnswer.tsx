@@ -13,10 +13,11 @@ const ListAnswer: React.FC = () => {
     <div className="la-main-wrapper">
       {answerCtx.items.map((item) => (
         <ItemAnswer
-          user="Test"
+        
+          user={item.user.username}
           createDate={today}
           text={item.answerBody}
-          onRemoveAnswer={answerCtx.removeItem.bind(null, item.id)}
+          onRemoveAnswer={answerCtx.onDelete.bind(null, item.id)}
         />
       ))}
     </div>

@@ -2,32 +2,38 @@ import React, { useRef, useContext } from "react";
 import Question from "../../models/question";
 import { QuestionContext } from "../../store/question-context";
 import { AuthContext } from "../../store/auth-contex";
-import "./questionForm.css";
+import Button from "../UI/Button/Button";
+import Card from "../UI/Card/Card";
 
-const QuestionForm: React.FC = (props) => {
+const CreateQuestion: React.FC = (props) => {
   const questionCtx = useContext(QuestionContext);
   const authCtx = useContext(AuthContext);
   const titleTextHandlerRef = useRef<HTMLInputElement>(null);
   const bodyTextHandlerRef = useRef<HTMLInputElement>(null);
 
-  const submitHandler = (event: React.FormEvent) => {
+  const addQuestionHandler = (event: React.FormEvent) => {
     event.preventDefault();
 
     const enteredTitle = titleTextHandlerRef.current!.value;
     const enteredBodyText = bodyTextHandlerRef.current!.value;
     const question = new Question(
-      authCtx.user!,
+      authCtx.profile!,
       enteredTitle,
-      enteredBodyText,
+      enteredBodyText
     );
 
-    questionCtx.onCreate(question);
+    questionCtx.onSave(question);
     console.log(JSON.stringify(question));
   };
+
+  const cancelHandler = () => {
+      
+  };
+
   return (
-    <div className="qf-container">
+    <Card size="">
       <h2>Ask Question</h2>
-      <form onSubmit={submitHandler}>
+      <form>
         <div className="form-group">
           <label>Title</label>
           <input type="text" ref={titleTextHandlerRef} />
@@ -37,12 +43,16 @@ const QuestionForm: React.FC = (props) => {
           <input type="text" ref={bodyTextHandlerRef} />
         </div>
         <div className="form-toggle">
-          <button type="submit">Ask</button>
-          <button>Cancel</button>
+          <Button type="contained" onAction={addQuestionHandler}>
+            Ask
+          </Button>
+          <Button type="outlined" onAction={cancelHandler}>
+            Cancel
+          </Button>
         </div>
       </form>
-    </div>
+    </Card>
   );
 };
 
-export default QuestionForm;
+export default CreateQuestion;

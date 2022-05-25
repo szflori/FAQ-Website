@@ -1,36 +1,63 @@
 import React, { useState, useEffect } from "react";
 import Question from "../models/question";
 
-type QuestionContextObj = {
-  items: Question[];
-  onCreate: (question: Question) => void;
-  onUpdate: (id: number, question: Question) => void;
-  onDelete: (id: number) => void;
-};
-
 type Props = {
   children: React.ReactNode;
 };
 
+type QuestionContextObj = {
+  items: Question[] | undefined;
+  item: Question | undefined;
+  onGetItem: (id: number) => void;
+  onSave: (question: Question) => void;
+  onUpdate: (id: number, question: Question) => void;
+  onDelete: (id: number) => void;
+};
+
 export const QuestionContext = React.createContext<QuestionContextObj>({
   items: [],
-  onCreate: () => {},
-  onUpdate: (id: number) => {},
+  item: undefined,
+  onGetItem: (id: number) => {},
+  onSave: () => {},
+  onUpdate: () => {},
   onDelete: (id: number) => {},
 });
 
 const QuestionContextProvider: React.FC<Props> = ({ children }) => {
   const [questions, setQuestions] = useState<Question[]>([]);
+  const [getQuestion, setQuestion] = useState<Question>();
 
+  useEffect(() => {
+    const storedQuestionsInformation = JSON.parse(
+      localStorage.getItem("questions")!
+    );
+
+    if (storedQuestionsInformation) {
+      setQuestions(storedQuestionsInformation);
+    }
+  }, []);
+
+  /* 
   useEffect(() => {
     localStorage.setItem("questions", JSON.stringify(questions));
   }, [questions]);
 
+  */
 
-  const addQuestionHandler = (question: Question) => {
+  const getQuestionHandler = (id: number) => {
+    questions.filter((item) => {
+      if (item.id === id) {
+        setQuestion(item);
+        return item;
+      }
+    });
+  };
+
+  const saveQuestionHandler = (question: Question) => {
     setQuestions((prevQuestions) => {
       return prevQuestions.concat(question);
     });
+    localStorage.setItem("questions", JSON.stringify(questions));
   };
 
   const updateQuestionHandler = (id: number, question: Question) => {
@@ -40,23 +67,29 @@ const QuestionContextProvider: React.FC<Props> = ({ children }) => {
       }
       return item;
     });
+
     setQuestions(newList);
+    localStorage.setItem("questions", JSON.stringify(questions));
   };
 
-  const removeQuestionHandler = (id: number) => {
+  const deleteQuestionHandler = (id: number) => {
     setQuestions((prevQuestions) => {
-      return prevQuestions.filter((question) => question.id !== id);
+      return prevQuestions.filter((item) => item.id !== id);
     });
+    localStorage.setItem("questions", JSON.stringify(questions));
   };
 
-  const contextQValue: QuestionContextObj = {
+  const contextData: QuestionContextObj = {
     items: questions,
-    onCreate: addQuestionHandler,
+    item: getQuestion,
+    onGetItem: getQuestionHandler,
+    onSave: saveQuestionHandler,
     onUpdate: updateQuestionHandler,
-    onDelete: removeQuestionHandler,
+    onDelete: deleteQuestionHandler,
   };
+
   return (
-    <QuestionContext.Provider value={contextQValue}>
+    <QuestionContext.Provider value={contextData}>
       {children}
     </QuestionContext.Provider>
   );
