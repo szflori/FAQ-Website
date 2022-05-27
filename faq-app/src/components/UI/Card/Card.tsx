@@ -1,14 +1,11 @@
-import React from 'react'
-
+import React from "react";
+import "./card.css";
 type Props = {
-    size: string;
-    children: React.ReactNode;
-  };
+  children: React.ReactNode;
+};
 
-const Card: React.FC<Props> = ({children, size}) => {
-  return (
-    <div className={`container ${size}`}>{children}</div>
-  )
-}
+const Card: React.FC<Props> = ({ children }) => {
+  return <div className="container">{children}</div>;
+};
 
-export default Card
+export default Card;

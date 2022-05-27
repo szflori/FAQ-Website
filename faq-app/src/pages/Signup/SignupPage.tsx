@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/UI/Button/Button";
+import TextField from "../../components/UI/TextField/TextField";
 import User from "../../models/user";
 import { AuthContext } from "../../store/auth-contex";
 import "./signup.css";
@@ -32,39 +33,24 @@ const SignupPage: React.FC = (props) => {
         </div>
 
         <form className="form-item">
-          <div className="form-group">
-            <label>Username</label>
-            <div className="textfield">
-              <input
-                type="text"
-                placeholder="Username"
-                className="input-control"
-                ref={usernameTextHandlerRef}
-              />
-            </div>
-          </div>
-          <div className="form-group">
-            <label>Email</label>
-            <div className="textfield">
-              <input
-                type="text"
-                placeholder="Email"
-                className="input-control"
-                ref={emailTextHandlerRef}
-              />
-            </div>
-          </div>
-          <div className="form-group">
-            <label>Password</label>
-            <div className="textfield">
-              <input
-                type="password"
-                placeholder="Password"
-                className="input-control"
-                ref={passwordTextHandlerRef}
-              />
-            </div>
-          </div>
+          <TextField
+            onLabel="Username"
+            onType="text"
+            onInputText="Username"
+            onRef={usernameTextHandlerRef}
+          />
+          <TextField
+            onLabel="Email"
+            onType="text"
+            onInputText="Email"
+            onRef={emailTextHandlerRef}
+          />
+          <TextField
+            onLabel="Password"
+            onType="password"
+            onInputText="Password"
+            onRef={passwordTextHandlerRef}
+          />
           <div className="info-wrapper">
             <input type="checkbox" />{" "}
             <span>

@@ -1,3 +1,4 @@
+import { Backdrop } from "@mui/material";
 import React, { useState } from "react";
 import Navbar from "../../components/nav/Navbar";
 import CreateQuestion from "../../components/question/CreateQuestion";
@@ -7,20 +8,22 @@ import Card from "../../components/UI/Card/Card";
 import "./home.css";
 
 const Home: React.FC = () => {
-  const [askNew, setAskNew] = useState<boolean>();
+  const [askNew, setAskNew] = useState<boolean>(false);
 
   return (
     <>
       <Navbar />
       <div className="home-index">
-        <Card size="">
+        <Card>
           <div className="header-wrapper">
             <h2>All Questions</h2>
             <Button type="outlined" onAction={() => setAskNew(!askNew)}>
               Ask Question
             </Button>
           </div>
-          {askNew && <CreateQuestion/>}
+          <Backdrop open={askNew}>
+            <CreateQuestion onShow={() => setAskNew(!askNew)} />
+          </Backdrop>
           <ListQuestion />
         </Card>
       </div>

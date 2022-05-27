@@ -41,19 +41,12 @@ const AuthContextProvider: React.FC<Props> = ({ children }) => {
       const storedUserLoggedProfileInformation = JSON.parse(
         localStorage.getItem("isLoggedProfile")!
       );
-      if (storedRegUsersInformation) {
+      if (storedUserLoggedInInformation) {
         setProfile(storedUserLoggedProfileInformation);
       }
       setIsLoggedIn(true);
     }
   }, []);
-
-  /* 
-  useEffect(() => {
-    localStorage.setItem("regUsers", JSON.stringify(regUsers));
-  }, [regUsers]);
-
-  */
 
   const logoutHandler = () => {
     localStorage.removeItem("isLoggedIn");
@@ -77,10 +70,9 @@ const AuthContextProvider: React.FC<Props> = ({ children }) => {
   };
 
   const signupHandler = (user: User) => {
-    setRegUsers((prevRegUsers) => {
-      return prevRegUsers.concat(user);
-    });
-    localStorage.setItem("regUsers", JSON.stringify(regUsers));
+    const newUsers = regUsers.concat(user);
+    localStorage.setItem("regUsers", JSON.stringify(newUsers));
+    setRegUsers(newUsers);
   };
 
   const contextData: AuthContextObj = {

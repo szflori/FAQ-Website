@@ -1,6 +1,7 @@
 import React, { useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/UI/Button/Button";
+import TextField from "../../components/UI/TextField/TextField";
 import { AuthContext } from "../../store/auth-contex";
 import "./loginpage.css";
 
@@ -17,12 +18,7 @@ const LoginPage: React.FC = () => {
     const enteredPassword = passwordTextHandlerRef.current!.value;
 
     authCtx.onLogin(enteredUserName, enteredPassword);
-
-    if (authCtx.isLoggedIn) {
-      navigate("/home");
-    } else {
-      console.log("Error");
-    }
+    navigate("/home");
   };
   return (
     <div className="login-index">
@@ -32,35 +28,28 @@ const LoginPage: React.FC = () => {
         </div>
         <div className="log-main-wrapper">
           <form className="form-wrapper">
-            <div className="form-group">
-              <label>Username or Email</label>
-              <div className="textfield">
-                <input
-                  type="text"
-                  placeholder="Username or email"
-                  className="input-control"
-                  ref={usernameTextHandlerRef}
-                />
-              </div>
-            </div>
-            <div className="form-group">
-              <label>Password</label>
-              <div className="textfield">
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="input-control"
-                  ref={passwordTextHandlerRef}
-                />
-              </div>
-            </div>
-            <Button type="contained" onAction={loginHandler}>Log in</Button>
+            <TextField
+              onLabel="Username or Email"
+              onType="text"
+              onInputText="Username or Email"
+              onRef={usernameTextHandlerRef}
+            />
+            <TextField
+              onLabel="Password"
+              onType="password"
+              onInputText="Password"
+              onRef={passwordTextHandlerRef}
+            />
+
+            <Button type="contained" onAction={loginHandler}>
+              Log in
+            </Button>
           </form>
         </div>
         <div className="footer-wrappre">
           <span>
             Don't have account?{" "}
-            <Link to="/singup" className="signup-link">
+            <Link to="/signup" className="signup-link">
               Sign up
             </Link>
           </span>

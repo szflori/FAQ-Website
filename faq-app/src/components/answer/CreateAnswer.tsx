@@ -1,10 +1,13 @@
 import React, { useRef, useContext } from "react";
 import Answer from "../../models/answer";
+import Question from "../../models/question";
 import { AnswerContext } from "../../store/answer-context";
 import { AuthContext } from "../../store/auth-contex";
 import { QuestionContext } from "../../store/question-context";
+import Button from "../UI/Button/Button";
+import TextField from "../UI/TextField/TextField";
 
-const CreateAnswer: React.FC = () => {
+const CreateAnswer: React.FC<{ onQuestion: Question, onShow: () => void }> = (props) => {
   const answerCtx = useContext(AnswerContext);
   const authCtx = useContext(AuthContext);
   const questionCtx = useContext(QuestionContext);
@@ -14,20 +17,37 @@ const CreateAnswer: React.FC = () => {
     event.preventDefault();
 
     const enteredTextBody = textBodyTextHandlerRef.current!.value;
-    const answer = new Answer(authCtx.profile!, questionCtx.item!, enteredTextBody, 2, 2);
+    const answer = new Answer(
+      authCtx.profile!,
+      props.onQuestion,
+      enteredTextBody,
+      2,
+      2
+    );
 
     answerCtx.onSave(answer);
+    props.onShow();
+  };
+
+  const cancelAnswerHandler = () => {
+    props.onShow();
   };
   return (
     <div>
-      <form onSubmit={submitAnswerHandler}>
-        <div className="form-group">
-          <label>Text</label>
-          <input type="text" ref={textBodyTextHandlerRef} />
-        </div>
+      <form>
+        <TextField
+          onLabel="Text"
+          onType="text"
+          onInputText="Text"
+          onRef={textBodyTextHandlerRef}
+        />
         <div className="form-toggle">
-          <button type="submit">Add</button>
-          <button>Cancel</button>
+          <Button type="outlined" onAction={submitAnswerHandler}>
+            Add
+          </Button>
+          <Button type="outlined" onAction={cancelAnswerHandler}>
+            Cancel
+          </Button>
         </div>
       </form>
     </div>

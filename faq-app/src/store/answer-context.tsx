@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Answer from "../models/answer";
+import Question from "../models/question";
 
 type Props = {
   children: React.ReactNode;
@@ -31,18 +32,11 @@ const AnswerContextProvider: React.FC<Props> = ({ children }) => {
     }
   }, []);
 
-  /* 
-  useEffect(() => {
-    localStorage.setItem("answers", JSON.stringify(answers));
-  }, [answers]);
-
-  */
 
   const saveAnswerHandler = (answer: Answer) => {
-    setAnswers((prevAnswers) => {
-      return prevAnswers.concat(answer);
-    });
-    localStorage.setItem("answers", JSON.stringify(answers));
+    const newAnswers = answers.concat(answer);
+    localStorage.setItem("answers", JSON.stringify(newAnswers));
+    setAnswers(newAnswers);
   };
 
   const updateAnswerHandler = (id: number, answer: Answer) => {

@@ -1,0 +1,18 @@
+.textfield-wrapper {
+  display: grid;
+  gap: 5px;
+}
+
+.textfield-input {
+  padding: 12px 0;
+  background: var(--color-ui-h);
+}
+
+.text-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  text-decoration: none;
+  padding: 0 7px;
+  width: 100%;
+}
