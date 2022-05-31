@@ -1,0 +1,25 @@
+.nav-container {
+  height: 52px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 200px;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-ui-section-bg);
+}
+
+.left-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo{
+    margin-right: 5px;
+}
+
+.right-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
