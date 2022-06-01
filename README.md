@@ -1,5 +1,5 @@
 # FAQ-Website
-This website project: frequently asked question, frequently asked questions —used to refer to a list of answers to typical questions that users of a Web site might ask.
+This website project: *frequently asked question*. **frequently asked questions** —used to refer to a list of answers to typical questions that users of a Web site might ask.
 
 ## How to start
 1. Clone git repository with `git clone` command
@@ -14,7 +14,7 @@ This website project: frequently asked question, frequently asked questions —u
 - Registered users can like or dislike the answers
 
 ## How to use Data model
-- User
+> User
 ```
 {
   id: string;
@@ -23,7 +23,7 @@ This website project: frequently asked question, frequently asked questions —u
   password: string;
 }
 ```
-- Question
+> Question
 ```
 {
   id: string;
@@ -32,7 +32,7 @@ This website project: frequently asked question, frequently asked questions —u
   description: string;
 }
 ```
-- Answer
+> Answer
 ```
 {
   id: string;
@@ -43,3 +43,16 @@ This website project: frequently asked question, frequently asked questions —u
   dislikeCount: number;
 }
 ```
+## Project used dependencies
+
+| Dependencies name | version |
+| ----- | ----- |
+| typescript | ^4.7.2 | 
+| react-router-dom | ^6.3.0 |
+| mui/material | ^5.8.2 |
+| mui/icons-material | ^5.8.2 |
+| emotion/styled | ^11.8.1 | 
+| emotion/react | ^11.9.0 |
+
+## Postscript
+I hope you liked it 👍 and get a star ⭐
