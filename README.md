@@ -13,6 +13,14 @@ This website project: *frequently asked question*. **frequently asked questions*
 - Registered users can modify and delete items
 - Registered users can like or dislike the answers
 
+## Testing Data
+| Username | email | password |
+| ----- | ----- | ------ |
+| Test Elek | elek@test.com | test |
+| John Dee | john@dee.com | dee |
+| Mary Lee | mary@lee.com | lee |
+
+
 ## How to use Data model
 > User
 ```
@@ -28,6 +36,7 @@ This website project: *frequently asked question*. **frequently asked questions*
 {
   id: string;
   userID: string;
+  tag: string[];
   title: string;
   description: string;
 }
@@ -41,6 +50,13 @@ This website project: *frequently asked question*. **frequently asked questions*
   questionID: string;
   likeCount: number;
   dislikeCount: number;
+}
+```
+> Category
+```
+{
+  id: string;
+  title: string;
 }
 ```
 ## Project used dependencies
