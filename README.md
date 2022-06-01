@@ -8,13 +8,13 @@ This website project: frequently asked question, frequently asked questions —u
 4. Open browser then enter `https://localhost:3030`
 
 ## How to work
-1. Only registered users can ask and answer
-2. Not registered users just can view it
-3. Registered users can modify and delete items
-4. Registered users can like or dislike the answers
+- Only registered users can ask and answer
+- Not registered users just can view it
+- Registered users can modify and delete items
+- Registered users can like or dislike the answers
 
 ## How to use Data model
-1. User
+- User
 ```
 {
   id: string;
@@ -23,7 +23,7 @@ This website project: frequently asked question, frequently asked questions —u
   password: string;
 }
 ```
-2. Question
+- Question
 ```
 {
   id: string;
@@ -32,7 +32,7 @@ This website project: frequently asked question, frequently asked questions —u
   description: string;
 }
 ```
-3. Answer
+- Answer
 ```
 {
   id: string;
