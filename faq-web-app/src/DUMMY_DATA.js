@@ -1,65 +1,102 @@
-export const USER = [
+export const Test_Category = [
   {
-    id: "u1",
-    username: "Test",
-    email: "test@test.com",
-    password: "test",
+    id: "c0",
+    title: "ALL",
   },
   {
-    id: "u2",
-    username: "Elek",
-    email: "elek@test.com",
-    password: "elek",
-  },
-];
-
-export const DATA = [
-  {
-    id: "1",
-    userID: "u1",
-    title: "Who?",
-    description:
-      "WHO's primary role is to direct international health within the United Nations' system and to lead partners in global health responses.",
+    id: "c1",
+    title: "HTML",
   },
   {
-    id: "2",
-    userID: "u1",
-    title: "Apple?",
-    description:
-      "iPhone, Apple Watch, Mac, iPad, AirPods és több. Vásárlás. Szolgáltatások: Szakértői segítség, Ingyenes szállítás, Közvetlenül az Apple-től.",
+    id: "c2",
+    title: "CSS",
   },
   {
-    id: "3",
-    userID: "u2",
-    title: "Microsoft",
-    description:
-      "A Microsoft Corporation a világ legnagyobb szoftvervállalata, 134 ezer alkalmazottat foglalkoztat a világ több mint 153 országában. Székhelye Redmondban, Washington államban van. A cég részvénye egyike annak a harminc részvényből álló kosárnak, amelyből a Dow Jones Ipari Átlagot számítják.",
+    id: "c3",
+    title: "JavaScript",
+  },
+  {
+    id: "c4",
+    title: "TypeScript",
+  },
+  {
+    id: "c5",
+    title: "Java",
+  },
+  {
+    id: "c6",
+    title: "C#",
+  },
+  {
+    id: "c7",
+    title: "C++",
   },
 ];
 
-export const AnswersTest = [
+export const Test_User = [
+  { id: "u1", username: "Test Elek", email: "elek@test.com", password: "test" },
+  { id: "u2", username: "John Dee", email: "john@dee.com", password: "dee" },
+  { id: "u3", username: "Mary Lee", email: "mary@lee.com", password: "lee" },
+];
+
+export const Test_Question = [
   {
-    id: "a8",
-    userID: "u2",
-    questionID: "1",
-    text: "Hello bello 333!!!",
-    likeCount: 2,
-    dislikeCount: 3,
-  },
-  {
-    id: "a9",
-    userID: "u2",
-    questionID: "2",
-    text: "ALOHA 33",
-    likeCount: 2,
-    dislikeCount: 3,
-  },
-  {
-    id: "a10",
+    id: "q1",
     userID: "u1",
-    questionID: "3",
-    text: "Dobar dan 33",
-    likeCount: 2,
+    tag: ["c0", "c1", "c2", "c3"],
+    title: "How to make Website?",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+  },
+  {
+    id: "q2",
+    userID: "u2",
+    tag: ["c0", "c3", "c4"],
+    title: "What is difference JS vs TS?",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+  },
+  {
+    id: "q3",
+    userID: "u3",
+    tag: ["c0", "c5", "c6", "c7"],
+    title: "What programm languages good for desktop software?",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+  },
+];
+
+export const Test_Answer = [
+  {
+    id: "a1",
+    userID: "u1",
+    questionID: "q2",
+    text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. ",
+    likeCount: 7,
+    dislikeCount: 1,
+  },
+  {
+    id: "a2",
+    userID: "u3",
+    questionID: "q2",
+    text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. ",
+    likeCount: 17,
     dislikeCount: 3,
+  },
+  {
+    id: "a3",
+    userID: "u3",
+    questionID: "q1",
+    text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. ",
+    likeCount: 17,
+    dislikeCount: 3,
+  },
+  {
+    id: "a4",
+    userID: "u2",
+    questionID: "q3",
+    text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. ",
+    likeCount: 9,
+    dislikeCount: 2,
   },
 ];

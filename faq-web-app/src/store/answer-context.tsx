@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Answer } from "../models/answer";
 
-import { AnswersTest } from "../DUMMY_DATA";
+import { Test_Answer } from "../DUMMY_DATA";
 
 type Props = {
   children: React.ReactNode;
@@ -26,7 +26,7 @@ export const AnswerContext = React.createContext<AnswerContextObj>({
 });
 
 const AnswerContextProvider: React.FC<Props> = ({ children }) => {
-  const [answers, setAnswers] = useState<Answer[]>(AnswersTest);
+  const [answers, setAnswers] = useState<Answer[]>(Test_Answer);
   const [questionID, setQuestionID] = useState<string>();
 
   useEffect(() => {

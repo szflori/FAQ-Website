@@ -1,0 +1,13 @@
+.tag-item {
+  padding: 5px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.light {
+  background: var(--color-ui-light-section-bg);
+}
+
+.dark {
+  background: var(--color-ui-bg);
+}

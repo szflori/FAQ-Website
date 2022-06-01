@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Question } from "../models/question";
 
-import { DATA } from "../DUMMY_DATA";
+import { Test_Question } from "../DUMMY_DATA";
 
 type Props = {
   children: React.ReactNode;
@@ -22,7 +22,7 @@ export const QuestionContext = React.createContext<QuestionContextObj>({
 });
 
 const QuestionContextProvider: React.FC<Props> = ({ children }) => {
-  const [questions, setQuestions] = useState<Question[]>(DATA);
+  const [questions, setQuestions] = useState<Question[]>(Test_Question);
 
   useEffect(() => {
     const storedQuestionsInformation = JSON.parse(

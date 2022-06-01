@@ -46,7 +46,11 @@ const ViewItem: React.FC = () => {
           userID={question?.userID}
           title={question?.title}
           description={question?.description}
+          tag={question?.tag}
         />
+        <div className="answers-title">
+          Answers
+        </div>
         <ListAnswerComponent questionID={question?.id} />
         <OkButton onClick={addAnswerHandler}>Add Answer</OkButton>
         </div>

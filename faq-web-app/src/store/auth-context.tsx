@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { User } from "../models/user";
 
-import { USER } from "../DUMMY_DATA";
+import { Test_User } from "../DUMMY_DATA";
 
 type Props = {
   children: React.ReactNode;
@@ -28,7 +28,7 @@ export const AuthContext = React.createContext<AuthContextObj>({
 const AuthContextProvider: React.FC<Props> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [profile, setProfile] = useState<User>();
-  const [regUsers, setRegUsers] = useState<User[]>(USER);
+  const [regUsers, setRegUsers] = useState<User[]>(Test_User);
 
   useEffect(() => {
     const storedRegUsersInformation = JSON.parse(

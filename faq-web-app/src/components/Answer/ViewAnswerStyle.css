@@ -14,7 +14,11 @@
 }
 
 .answer-title {
-  font-size: 20px;
+  font-size: 15px;
+  color: black;
+  padding: 2px 7px;
+  background: var(--color-ui-light-section-bg);
+  border-radius: 2px;
 }
 
 .answer-op-toggle {

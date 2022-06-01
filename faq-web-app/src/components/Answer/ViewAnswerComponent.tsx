@@ -8,7 +8,6 @@ import BackspaceIcon from "@mui/icons-material/Backspace";
 import ModeIcon from "@mui/icons-material/Mode";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
-import { Button } from "@mui/material";
 import { CancelButton, OkButton } from "../../assets/Styles/Button/Button";
 
 const ViewAnswerComponent: React.FC<{
@@ -21,6 +20,7 @@ const ViewAnswerComponent: React.FC<{
   const [likeCount, setLikeCount] = useState<number>(0);
   const [dislikeCount, setDislikeount] = useState<number>(0);
   const [username, setUsername] = useState<string>();
+  const [modify, setModify] = useState<boolean>(false);
   const navigation = useNavigate();
 
   useEffect(() => {
@@ -29,6 +29,10 @@ const ViewAnswerComponent: React.FC<{
         setUsername(user.username);
       }
     });
+
+    if (authCtx.profile?.id === props.userID) {
+      setModify(true);
+    }
   }, [username]);
 
   const deleteHandler = (id: string) => {
@@ -43,20 +47,22 @@ const ViewAnswerComponent: React.FC<{
     <li className="answer-container">
       <div className="answer-header">
         <span className="answer-title">{username}</span>
-        <div className="answer-op-toggle">
-          <ModeIcon
-            fontSize="medium"
-            onClick={modifyHandler.bind(null, props.id)}
-          >
-            MOD
-          </ModeIcon>
-          <BackspaceIcon
-            fontSize="medium"
-            onClick={deleteHandler.bind(null, props.id)}
-          >
-            DELETE
-          </BackspaceIcon>
-        </div>
+        {modify && (
+          <div className="answer-op-toggle">
+            <ModeIcon
+              fontSize="medium"
+              onClick={modifyHandler.bind(null, props.id)}
+            >
+              MOD
+            </ModeIcon>
+            <BackspaceIcon
+              fontSize="medium"
+              onClick={deleteHandler.bind(null, props.id)}
+            >
+              DELETE
+            </BackspaceIcon>
+          </div>
+        )}
       </div>
       <div className="answer-main">
         <p>{props.text}</p>

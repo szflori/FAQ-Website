@@ -1,6 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { OkButton } from "../../assets/Styles/Button/Button";
+import ListCategoryComponent from "../../components/Category/ListCategoryComponent";
 import Navbar from "../../components/Navbar/Navbar";
 import ListQuestionComponent from "../../components/Question/ListQuestionComponent";
 import { AuthContext } from "../../store/auth-context";
@@ -27,6 +28,7 @@ const Home: React.FC = () => {
             <h2>All Questions</h2>
             <OkButton variant="contained" size="medium" onClick={askQuestionHandler}>Ask Question</OkButton>
           </div>
+          <ListCategoryComponent/>
           <ListQuestionComponent />
         </div>
       </div>
