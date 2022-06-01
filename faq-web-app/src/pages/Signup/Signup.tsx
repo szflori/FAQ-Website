@@ -1,5 +1,9 @@
+import { TextField } from "@mui/material";
+import { Container } from "@mui/system";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { OkButton } from "../../assets/Styles/Button/Button";
+import { TextInput } from "../../assets/Styles/TextField/TextField";
 import { User } from "../../models/user";
 import { AuthContext } from "../../store/auth-context";
 
@@ -22,32 +26,34 @@ const Signup: React.FC = () => {
     navigation("/login");
   };
   return (
-    <div>
-      <form>
-        <label>Username</label>
-        <input
-          type="text"
-          placeholder="Username"
-          value={enteredUsernameText}
-          onChange={(e) => setEnteredUsernameText(e.target.value)}
-        />
-        <label>Email</label>
-        <input
-          type="text"
-          placeholder="Email"
-          value={enteredEmailText}
-          onChange={(e) => setEnteredEmailText(e.target.value)}
-        />
-        <label>Password</label>
-        <input
-          type="password"
-          placeholder="Password"
-          value={enteredPasswordText}
-          onChange={(e) => setEnteredPasswordText(e.target.value)}
-        />
-        <button onClick={signupHandler}>Signup</button>
-      </form>
-    </div>
+    <Container maxWidth="sm">
+      <div className="item-container">
+        <h2>Create Account</h2>
+        <form>
+          <TextInput
+            label="Username"
+            defaultValue={enteredUsernameText}
+            multiline
+            onChange={(e) => setEnteredUsernameText(e.target.value)}
+          />
+          <TextInput
+            label="Email"
+            defaultValue={enteredEmailText}
+            multiline
+            onChange={(e) => setEnteredEmailText(e.target.value)}
+          />
+          <TextInput
+            id="outlined-password-input"
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            defaultValue={enteredPasswordText}
+            onChange={(e) => setEnteredPasswordText(e.target.value)}
+          />
+          <OkButton onClick={signupHandler}>Signup</OkButton>
+        </form>
+      </div>
+    </Container>
   );
 };
 

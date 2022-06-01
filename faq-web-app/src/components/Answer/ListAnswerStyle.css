@@ -1,0 +1,6 @@
+.list-wrapper{
+    display: grid;
+    gap: 25px;
+    align-items: center;
+    padding: 0 5px;
+}

@@ -1,0 +1,38 @@
+.answer-container {
+  max-width: 700px;
+  display: grid;
+  gap: 10px;
+  align-items: center;
+  padding: 25px;
+  background: var(--color-ui-bg);
+  border-radius: 2px;
+}
+
+.answer-header {
+  display: flex;
+  align-items: center;
+}
+
+.answer-title {
+  font-size: 20px;
+}
+
+.answer-op-toggle {
+  display: flex;
+  margin-left: auto;
+  gap: 25px;
+}
+
+.answer-main {
+  display: grid;
+  padding: 5px 20px;
+}
+
+.answer-toggle {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  margin-top: 5px;
+  padding-top: 15px;
+  border-top: 1px solid white;
+}

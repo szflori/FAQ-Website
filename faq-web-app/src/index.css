@@ -32,3 +32,13 @@ body {
   background: var(--color-ui-bg);
   color: var(--color-ui-text);
 }
+
+form{
+  display: grid;
+  align-items: center;
+  gap: 25px;
+}
+
+p{
+  word-break: break-all;
+}

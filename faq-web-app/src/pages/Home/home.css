@@ -1,0 +1,22 @@
+.home-main {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-container {
+  display: grid;
+  gap: 25px;
+  align-items: center;
+  justify-content: center;
+  margin: 25px 25px;
+  padding: 25px 25px;
+  background: var(--color-ui-section-bg);
+  border-radius: 2px;
+}
+
+.home-header {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  align-items: center;
+}

@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../store/auth-context";
-import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 
 import "../../assets/Styles/Navbar/Navbar.css";
+import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
+import { Signup, Login, Logout } from "../../assets/Styles/Navbar/NavStyle";
+import { Avatar, Chip } from "@mui/material";
 
 const Navbar: React.FC = () => {
   const authCtx = useContext(AuthContext);
@@ -16,16 +18,38 @@ const Navbar: React.FC = () => {
       </div>
       <div className="right-wrapper">
         {authCtx.isLoggedIn && (
-          <div>
-            <span>{authCtx.profile?.username}</span>{" "}
-            <button onClick={() => authCtx.onLogout()}>Log out</button>
+          <div className="info-wrapper">
+            <Chip
+              avatar={<Avatar>{authCtx.profile?.username[0]}</Avatar>}
+              label={authCtx.profile?.username}
+              variant="outlined"
+            />
+            <Logout
+              variant="outlined"
+              size="small"
+              onClick={() => authCtx.onLogout()}
+            >
+              Log out
+            </Logout>
           </div>
         )}
         {!authCtx.isLoggedIn && (
-          <div>
+          <div className="toggle-wrapper">
             {" "}
-            <button onClick={() => navigation("/login")}>Login</button>
-            <button onClick={() => navigation("/signup")}>Sign up</button>
+            <Login
+              variant="contained"
+              size="small"
+              onClick={() => navigation("/login")}
+            >
+              Login
+            </Login>
+            <Signup
+              variant="outlined"
+              size="small"
+              onClick={() => navigation("/signup")}
+            >
+              Sign up
+            </Signup>
           </div>
         )}
       </div>

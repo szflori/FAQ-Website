@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { OkButton } from "../../assets/Styles/Button/Button";
 import ListAnswerComponent from "../../components/Answer/ListAnswerComponent";
 import Navbar from "../../components/Navbar/Navbar";
 import ViewQuestionComponent from "../../components/Question/ViewQuestionComponent";
@@ -7,6 +8,8 @@ import { Question } from "../../models/question";
 import { AnswerContext } from "../../store/answer-context";
 import { AuthContext } from "../../store/auth-context";
 import { QuestionContext } from "../../store/question-context";
+
+import "./ViewItemStyle.css";
 
 const ViewItem: React.FC = () => {
   const questionCtx = useContext(QuestionContext);
@@ -36,14 +39,18 @@ const ViewItem: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <ViewQuestionComponent
-        id={question?.id}
-        userID={question?.userID}
-        title={question?.title}
-        description={question?.description}
-      />
-      <ListAnswerComponent questionID={question?.id} />
-      <button onClick={addAnswerHandler}>Add Answer</button>
+      <div className="view-page">
+        <div className="view-container">
+        <ViewQuestionComponent
+          id={question?.id}
+          userID={question?.userID}
+          title={question?.title}
+          description={question?.description}
+        />
+        <ListAnswerComponent questionID={question?.id} />
+        <OkButton onClick={addAnswerHandler}>Add Answer</OkButton>
+        </div>
+      </div>
     </div>
   );
 };

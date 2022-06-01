@@ -1,0 +1,4 @@
+.list-wrapper {
+  display: grid;
+  gap: 25px;
+}

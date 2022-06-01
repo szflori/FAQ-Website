@@ -1,0 +1,9 @@
+.item-container {
+  display: grid;
+  gap: 25px;
+  align-items: center;
+  margin: 25px;
+  padding: 25px;
+  background: var(--color-ui-section-bg);
+  border-radius: 2px;
+}

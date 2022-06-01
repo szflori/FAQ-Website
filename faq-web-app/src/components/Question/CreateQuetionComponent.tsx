@@ -1,12 +1,20 @@
+import { Button, TextField } from "@mui/material";
+import { Container } from "@mui/system";
+import { getByTitle } from "@testing-library/react";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { CancelButton, OkButton } from "../../assets/Styles/Button/Button";
+import { TextInput } from "../../assets/Styles/TextField/TextField";
 import { Question } from "../../models/question";
 import { AuthContext } from "../../store/auth-context";
 import { QuestionContext } from "../../store/question-context";
 
+import "./CreateQuestionStyle.css";
+
 const CreateQuetionComponent: React.FC = () => {
   const questionCtx = useContext(QuestionContext);
   const authCtx = useContext(AuthContext);
+  const [title, setTitle] = useState<string>();
   const [enteredTitleText, setEnteredTitleText] = useState<string>();
   const [enteredDescriptionText, setEnteredDescriptionText] =
     useState<string>();
@@ -15,8 +23,10 @@ const CreateQuetionComponent: React.FC = () => {
 
   useEffect(() => {
     if (id === "_new") {
+      setTitle("Ask Question");
       return;
     } else {
+      setTitle("Edit Question");
       questionCtx.items.find((item) => {
         if (item.id === id) {
           setEnteredTitleText(item.title);
@@ -42,7 +52,7 @@ const CreateQuetionComponent: React.FC = () => {
         id: id!,
         title: enteredTitleText!,
         description: enteredDescriptionText!,
-        userID: authCtx.profile!.id
+        userID: authCtx.profile!.id,
       };
       questionCtx.onUpdate(id!, question);
       navigation("/");
@@ -54,25 +64,33 @@ const CreateQuetionComponent: React.FC = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={saveOrUpdate}>
-        <label>Title</label>
-        <input
-          type="text"
-          placeholder="Title"
-          value={enteredTitleText}
-          onChange={(e) => setEnteredTitleText(e.target.value)}
-        />
-        <label>Description</label>
-        <input
-          type="text"
-          placeholder="Description"
-          value={enteredDescriptionText}
-          onChange={(e) => setEnteredDescriptionText(e.target.value)}
-        />
-        <button type="submit">Add</button>
-      </form>
-    </div>
+    <Container maxWidth="sm">
+      <div className="item-container">
+        <h2>{title}</h2>
+        <form>
+          <TextInput
+            label="Title"
+            multiline
+            defaultValue={enteredTitleText}
+            onChange={(e) => setEnteredTitleText(e.target.value)}
+          />
+          <TextInput
+            label="Description"
+            defaultValue={enteredDescriptionText}
+            multiline
+            rows={7}
+            onChange={(e) => setEnteredDescriptionText(e.target.value)}
+          />
+
+          <OkButton variant="contained" onClick={saveOrUpdate}>
+            Add
+          </OkButton>
+          <CancelButton variant="outlined" onClick={cancelAddQuestionHandler}>
+            Cancel
+          </CancelButton>
+        </form>
+      </div>
+    </Container>
   );
 };
 
