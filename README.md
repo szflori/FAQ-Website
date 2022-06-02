@@ -5,7 +5,7 @@ This website project: *frequently asked question*. **frequently asked questions*
 1. Clone git repository with `git clone` command
 2. Open faq-web-app  `cd faq-web-app`
 3. Start in terminal `npm start`
-4. Open browser then enter `https://localhost:3030`
+4. Open browser then enter `https://localhost:3000`
 
 ## How to work
 - Only registered users can ask and answer
