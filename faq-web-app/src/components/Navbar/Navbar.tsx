@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../store/auth-context";
 
 import "./Navbar.css";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
@@ -10,9 +9,13 @@ import {
   OkButton,
   SignupButton,
 } from "../../assets/Styles/Button/Button";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { loggedProfile, logout } from "../../store/authSlice";
 
 const Navbar: React.FC = () => {
-  const authCtx = useContext(AuthContext);
+  const isAuth = useAppSelector((state) => state.auth.isAuthenticated);
+  const profile = useAppSelector(loggedProfile);
+  const dispatch = useAppDispatch();
   const navigation = useNavigate();
 
   const navLinkStyles = {
@@ -30,27 +33,27 @@ const Navbar: React.FC = () => {
         </Link>
       </div>
       <div className="right-wrapper">
-        {authCtx.isLoggedIn && (
+        {isAuth && (
           <div className="info-wrapper">
             <Chip
               sx={{
                 color: "white",
                 border: "0.2px solid #00ff80",
               }}
-              avatar={<Avatar>{authCtx.profile?.username[0]}</Avatar>}
-              label={authCtx.profile?.username}
+              avatar={<Avatar>{profile && profile.username[0]}</Avatar>}
+              label={profile && profile.username}
               variant="outlined"
             />
             <CancelButton
               variant="outlined"
               size="small"
-              onClick={() => authCtx.onLogout()}
+              onClick={() => dispatch(logout())}
             >
               Log out
             </CancelButton>
           </div>
         )}
-        {!authCtx.isLoggedIn && (
+        {!isAuth && (
           <div className="toggle-wrapper">
             {" "}
             <OkButton

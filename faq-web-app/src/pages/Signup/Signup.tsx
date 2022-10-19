@@ -6,9 +6,11 @@ import { OkButton } from "../../assets/Styles/Button/Button";
 import { TextInput } from "../../assets/Styles/TextField/TextField";
 import { User } from "../../models/user";
 import { AuthContext } from "../../store/auth-context";
+import { signup } from "../../store/authSlice";
+import { useAppDispatch } from "../../store/hooks";
 
 const Signup: React.FC = () => {
-  const authCtx = useContext(AuthContext);
+  const dispatch = useAppDispatch();
   const [enteredUsernameText, setEnteredUsernameText] = useState<string>();
   const [enteredEmailText, setEnteredEmailText] = useState<string>();
   const [enteredPasswordText, setEnteredPasswordText] = useState<string>();
@@ -22,7 +24,7 @@ const Signup: React.FC = () => {
       email: enteredEmailText!,
       password: enteredPasswordText!,
     };
-    authCtx.onSignup(user);
+    dispatch(signup(user));
     navigation("/login");
   };
   return (

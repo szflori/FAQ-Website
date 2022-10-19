@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { OkButton } from "../../assets/Styles/Button/Button";
 import { TextInput } from "../../assets/Styles/TextField/TextField";
 import { AuthContext } from "../../store/auth-context";
+import { login } from "../../store/authSlice";
+import { useAppDispatch } from "../../store/hooks";
 
 const Login: React.FC = () => {
-  const authCtx = useContext(AuthContext);
+  const dispatch = useAppDispatch();
   const [enteredUsernameOrEmailText, setEnteredUsernameOrEmailText] =
     useState<string>();
   const [enteredPasswordText, setEnteredPasswordText] = useState<string>();
@@ -14,7 +16,12 @@ const Login: React.FC = () => {
 
   const loginHandler = (event: React.FormEvent) => {
     event.preventDefault();
-    authCtx.onLogin(enteredUsernameOrEmailText!, enteredPasswordText!);
+    dispatch(
+      login({
+        emailOrUsername: enteredUsernameOrEmailText!,
+        password: enteredPasswordText!,
+      })
+    );
     navigation("/");
   };
   return (
