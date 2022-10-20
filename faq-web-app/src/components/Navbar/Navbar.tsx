@@ -10,7 +10,7 @@ import {
   SignupButton,
 } from "../../assets/Styles/Button/Button";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { loggedProfile, logout } from "../../store/authSlice";
+import { loggedProfile, logout } from "../../store/reducers/auth-slice";
 
 const Navbar: React.FC = () => {
   const isAuth = useAppSelector((state) => state.auth.isAuthenticated);

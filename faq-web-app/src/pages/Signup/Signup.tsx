@@ -5,8 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { OkButton } from "../../assets/Styles/Button/Button";
 import { TextInput } from "../../assets/Styles/TextField/TextField";
 import { User } from "../../models/user";
-import { AuthContext } from "../../store/auth-context";
-import { signup } from "../../store/authSlice";
+import { signup } from "../../store/reducers/auth-slice";
 import { useAppDispatch } from "../../store/hooks";
 
 const Signup: React.FC = () => {

@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AnswerContext } from "../../store/answer-context";
-import { AuthContext } from "../../store/auth-context";
 
 import "./ViewAnswerStyle.css";
 import BackspaceIcon from "@mui/icons-material/Backspace";
@@ -9,14 +7,18 @@ import ModeIcon from "@mui/icons-material/Mode";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import { CancelButton, OkButton } from "../../assets/Styles/Button/Button";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { loggedProfile } from "../../store/reducers/auth-slice";
+import { deleteAnswer } from "../../store/reducers/answer-slice";
 
 const ViewAnswerComponent: React.FC<{
   id: string;
   text: string;
   userID: string;
 }> = (props) => {
-  const answerCtx = useContext(AnswerContext);
-  const authCtx = useContext(AuthContext);
+  const dispatch = useAppDispatch();
+  const users = useAppSelector((state) => state.auth.users);
+  const profile = useAppSelector(loggedProfile);
   const [likeCount, setLikeCount] = useState<number>(0);
   const [dislikeCount, setDislikeount] = useState<number>(0);
   const [username, setUsername] = useState<string>();
@@ -24,19 +26,19 @@ const ViewAnswerComponent: React.FC<{
   const navigation = useNavigate();
 
   useEffect(() => {
-    authCtx.users.find((user) => {
+    users.find((user) => {
       if (user.id === props.userID) {
         setUsername(user.username);
       }
     });
 
-    if (authCtx.profile?.id === props.userID) {
+    if (profile?.id === props.userID) {
       setModify(true);
     }
   }, [username]);
 
   const deleteHandler = (id: string) => {
-    answerCtx.onRemove(id);
+    dispatch(deleteAnswer(id));
   };
 
   const modifyHandler = (id: string) => {

@@ -5,22 +5,21 @@ import ListAnswerComponent from "../../components/Answer/ListAnswerComponent";
 import Navbar from "../../components/Navbar/Navbar";
 import ViewQuestionComponent from "../../components/Question/ViewQuestionComponent";
 import { Question } from "../../models/question";
-import { AnswerContext } from "../../store/answer-context";
-import { AuthContext } from "../../store/auth-context";
-import { QuestionContext } from "../../store/question-context";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { getQuestionID } from "../../store/reducers/answer-slice";
 
 import "./ViewItemStyle.css";
 
 const ViewItem: React.FC = () => {
-  const questionCtx = useContext(QuestionContext);
-  const answerCtx = useContext(AnswerContext);
-  const authCtx = useContext(AuthContext);
+  const dispatch = useAppDispatch();
+  const questions = useAppSelector((state) => state.question.items);
+  const isAuth = useAppSelector((state) => state.auth.isAuthenticated);
   const [question, setQuestion] = useState<Question>();
   const { id } = useParams();
   const navigation = useNavigate();
 
   useEffect(() => {
-    questionCtx.items.find((item) => {
+    questions.find((item) => {
       if (item.id === id) {
         setQuestion(item);
       }
@@ -28,8 +27,8 @@ const ViewItem: React.FC = () => {
   }, [question]);
 
   const addAnswerHandler = () => {
-    if (authCtx.isLoggedIn) {
-      answerCtx.onGetQuestionID(question!.id);
+    if (isAuth) {
+      dispatch(getQuestionID(question!.id))
       navigation("/item_answer/_new");
     } else {
       navigation("/login");
@@ -41,18 +40,16 @@ const ViewItem: React.FC = () => {
       <Navbar />
       <div className="view-page">
         <div className="view-container">
-        <ViewQuestionComponent
-          id={question?.id}
-          userID={question?.userID}
-          title={question?.title}
-          description={question?.description}
-          tag={question?.tag}
-        />
-        <div className="answers-title">
-          Answers
-        </div>
-        <ListAnswerComponent questionID={question?.id} />
-        <OkButton onClick={addAnswerHandler}>Add Answer</OkButton>
+          <ViewQuestionComponent
+            id={question?.id}
+            userID={question?.userID}
+            title={question?.title}
+            description={question?.description}
+            tag={question?.tag}
+          />
+          <div className="answers-title">Answers</div>
+          <ListAnswerComponent questionID={question?.id} />
+          <OkButton onClick={addAnswerHandler}>Add Answer</OkButton>
         </div>
       </div>
     </div>

@@ -1,8 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Test_User } from "../DUMMY_DATA";
-import { User } from "../models/user";
-import { getProfile, removeProfile, setProfile } from "../service/auth-service";
-import { RootState } from "./store";
+import { Test_User } from "../../DUMMY_DATA";
+import { User } from "../../models/user";
+import {
+  getProfile,
+  getUsers,
+  isAuthentication,
+  removeProfile,
+  setProfile,
+  signin,
+  setLogout,
+} from "../../service/auth-service";
+import { RootState } from "../store";
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -11,9 +19,9 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  isAuthenticated: false,
+  isAuthenticated: isAuthentication(),
   profile: getProfile() || undefined,
-  users: Test_User,
+  users: getUsers() ? getUsers() : Test_User,
 };
 
 export const authSlice = createSlice({
@@ -21,7 +29,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      localStorage.removeItem("isAuthenticated");
+      setLogout();
       removeProfile();
       state.isAuthenticated = false;
       state.profile = undefined;
@@ -37,7 +45,7 @@ export const authSlice = createSlice({
             user.email === action.payload.emailOrUsername) &&
           user.password === action.payload.password
         ) {
-          localStorage.setItem("isAuthenticated", "1");
+          signin();
           setProfile(user);
           state.isAuthenticated = true;
           state.profile = user;

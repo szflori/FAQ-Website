@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
-import { AnswerContext } from "../../store/answer-context";
 import ViewAnswerComponent from "./ViewAnswerComponent";
 
 import "./ListAnswerStyle.css";
+import { useAppSelector } from "../../store/hooks";
 
 const ListAnswerComponent: React.FC<{ questionID: string | undefined }> = (
   props
 ) => {
-  const answerCtx = useContext(AnswerContext);
+  const answers = useAppSelector((state) => state.answer.items);
   return (
     <ul className="list-wrapper">
-      {answerCtx.items
+      {answers
         .filter((item) => item.questionID === props.questionID)
         .map((filteredItem) => (
           <ViewAnswerComponent

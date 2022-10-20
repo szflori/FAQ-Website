@@ -4,16 +4,18 @@ import { OkButton } from "../../assets/Styles/Button/Button";
 import ListCategoryComponent from "../../components/Category/ListCategoryComponent";
 import Navbar from "../../components/Navbar/Navbar";
 import ListQuestionComponent from "../../components/Question/ListQuestionComponent";
-import { AuthContext } from "../../store/auth-context";
+import { useAppSelector } from "../../store/hooks";
 
 import "./home.css";
 
 const Home: React.FC = () => {
-  const authCtx = useContext(AuthContext);
+  const isAuth = useAppSelector((state) => state.auth.isAuthenticated);
+
+
   const navigation = useNavigate();
 
   const askQuestionHandler = () => {
-    if (authCtx.isLoggedIn) {
+    if (isAuth) {
       navigation("/item/_new");
     } else {
       navigation("/login");
@@ -26,9 +28,15 @@ const Home: React.FC = () => {
         <div className="home-container">
           <div className="home-header">
             <h2>All Questions</h2>
-            <OkButton variant="contained" size="medium" onClick={askQuestionHandler}>Ask Question</OkButton>
+            <OkButton
+              variant="contained"
+              size="medium"
+              onClick={askQuestionHandler}
+            >
+              Ask Question
+            </OkButton>
           </div>
-          <ListCategoryComponent/>
+          <ListCategoryComponent />
           <ListQuestionComponent />
         </div>
       </div>

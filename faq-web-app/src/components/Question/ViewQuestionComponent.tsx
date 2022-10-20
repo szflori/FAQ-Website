@@ -1,14 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AnswerContext } from "../../store/answer-context";
-import { AuthContext } from "../../store/auth-context";
-import { QuestionContext } from "../../store/question-context";
-
 import "./ViewQuestionStyle.css";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import ModeIcon from "@mui/icons-material/Mode";
-import { CategoryContext } from "../../store/category-context";
 import ViewCategoryComponent from "../Category/ViewCategoryComponent";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { loggedProfile } from "../../store/reducers/auth-slice";
+import { deleteQuestion } from "../../store/reducers/question-slice";
 
 const ViewQuestionComponent: React.FC<{
   id: string | undefined;
@@ -17,10 +15,12 @@ const ViewQuestionComponent: React.FC<{
   userID: string | undefined;
   tag: string[] | undefined;
 }> = (props) => {
-  const questionCtx = useContext(QuestionContext);
-  const answerCtx = useContext(AnswerContext);
-  const authCtx = useContext(AuthContext);
-  const categoryCtx = useContext(CategoryContext);
+  const isAuth = useAppSelector((state) => state.auth.isAuthenticated);
+  const users = useAppSelector((state) => state.auth.users);
+  const answers = useAppSelector((state) => state.answer.items);
+  const categories = useAppSelector((state) => state.category.items);
+  const profile = useAppSelector(loggedProfile);
+  const dispatch = useAppDispatch();
   const [answerCount, setAnswerCount] = useState<number>();
   const [userName, setUserName] = useState<string>();
   const [modify, setModify] = useState<boolean>(false);
@@ -28,23 +28,23 @@ const ViewQuestionComponent: React.FC<{
 
   useEffect(() => {
     setAnswerCount(
-      answerCtx.items.filter((item) => item.questionID === props.id).length
+      answers.filter((item) => item.questionID === props.id).length
     );
-    authCtx.users.find((user) => {
+    users.find((user) => {
       if (user.id === props.userID) {
         setUserName(user.username);
       } else {
       }
     });
-    if (authCtx.isLoggedIn) {
-      if (authCtx.profile?.id === props.userID!) {
+    if (isAuth) {
+      if (profile?.id === props.userID!) {
         setModify(true);
       }
     }
   }, [answerCount, userName]);
 
   const deleteQuestionHandler = (id: string) => {
-    questionCtx.onRemove(id);
+    dispatch(deleteQuestion({ id }));
   };
 
   const modifyQuestionHandler = (id: string) => {
@@ -95,7 +95,7 @@ const ViewQuestionComponent: React.FC<{
           <p>{props.description}</p>
         </div>
         <ul className="tag-list">
-          {categoryCtx.items
+          {categories
             .filter((item) => props.tag?.find((element) => element === item.id))
             .map((item) => (
               <ViewCategoryComponent

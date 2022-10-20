@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { CategoryContext } from "../../store/category-context";
+import { useAppDispatch } from "../../store/hooks";
+import { filteredTag } from "../../store/reducers/category-slice";
 
 import "./ViewCategoryStyle.css";
 
@@ -8,11 +9,12 @@ const ViewCategoryComponent: React.FC<{
   title: string;
   bg: string;
 }> = (props) => {
-  const categoryCtx = useContext(CategoryContext);
+  const dispatch = useAppDispatch();
 
   const categoryFilterHandler = (id: string) => {
-    categoryCtx.onFilteredTag(id);
+    dispatch(filteredTag(id));
   };
+  
   return (
     <li
       className={`tag-item ${props.bg}`}

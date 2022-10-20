@@ -1,15 +1,20 @@
 import React, { useContext } from "react";
 import ViewCategoryComponent from "./ViewCategoryComponent";
-import { CategoryContext } from "../../store/category-context";
 
 import "./ListCategoryStyle.css";
+import { useAppSelector } from "../../store/hooks";
 
 const ListCategoryComponent: React.FC = () => {
-  const categoryCtx = useContext(CategoryContext);
+  const categories = useAppSelector((state) => state.category.items);
   return (
     <ul className="tag-list">
-      {categoryCtx.items.map((item) => (
-        <ViewCategoryComponent key={item.id} id={item.id} title={item.title} bg="light"/>
+      {categories.map((item) => (
+        <ViewCategoryComponent
+          key={item.id}
+          id={item.id}
+          title={item.title}
+          bg="light"
+        />
       ))}
     </ul>
   );

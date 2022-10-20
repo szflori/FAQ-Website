@@ -1,5 +1,4 @@
 import {
-  Checkbox,
   ListItemText,
   MenuItem,
   Select,
@@ -11,9 +10,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { CancelButton, OkButton } from "../../assets/Styles/Button/Button";
 import { TextInput } from "../../assets/Styles/TextField/TextField";
 import { Question } from "../../models/question";
-import { AuthContext } from "../../store/auth-context";
-import { CategoryContext } from "../../store/category-context";
-import { QuestionContext } from "../../store/question-context";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { loggedProfile } from "../../store/reducers/auth-slice";
+import {
+  addQuestion,
+  updateQuestion,
+} from "../../store/reducers/question-slice";
 
 import "./CreateQuestionStyle.css";
 
@@ -29,9 +31,10 @@ const MenuProps = {
 };
 
 const CreateQuetionComponent: React.FC = () => {
-  const questionCtx = useContext(QuestionContext);
-  const authCtx = useContext(AuthContext);
-  const categoryCtx = useContext(CategoryContext);
+  const dispatch = useAppDispatch();
+  const questions = useAppSelector((state) => state.question.items);
+  const categoies = useAppSelector((state) => state.category.items);
+  const profile = useAppSelector(loggedProfile);
   const [title, setTitle] = useState<string>();
   const [enteredTitleText, setEnteredTitleText] = useState<string>();
   const [selectedTagText, setSelectedTagText] = useState<string[]>([]);
@@ -46,7 +49,7 @@ const CreateQuetionComponent: React.FC = () => {
       return;
     } else {
       setTitle("Edit Question");
-      questionCtx.items.find((item) => {
+      questions.find((item) => {
         if (item.id === id) {
           setEnteredTitleText(item.title);
           setEnteredDescriptionText(item.description);
@@ -63,20 +66,20 @@ const CreateQuetionComponent: React.FC = () => {
         id: Math.round(Math.floor(Math.random() * 100)).toString(),
         title: enteredTitleText!,
         description: enteredDescriptionText!,
-        userID: authCtx.profile!.id,
+        userID: profile!.id,
         tag: selectedTagText,
       };
-      questionCtx.onAdd(question);
+      dispatch(addQuestion(question));
       navigation("/");
     } else {
       const question: Question = {
         id: id!,
         title: enteredTitleText!,
         description: enteredDescriptionText!,
-        userID: authCtx.profile!.id,
+        userID: profile!.id,
         tag: selectedTagText,
       };
-      questionCtx.onUpdate(id!, question);
+      dispatch(updateQuestion({ id: id!, question }));
       navigation("/");
     }
   };
@@ -96,7 +99,7 @@ const CreateQuetionComponent: React.FC = () => {
 
   const converterHandler = (selectedItems: string[]) => {
     const titleList = selectedItems.map(
-      (select) => categoryCtx.items.find((item) => item.id === select)?.title
+      (select) => categoies.find((item) => item.id === select)?.title
     );
     return titleList;
   };
@@ -127,7 +130,7 @@ const CreateQuetionComponent: React.FC = () => {
             renderValue={(selected) => converterHandler(selected).join(", ")}
             MenuProps={MenuProps}
           >
-            {categoryCtx.items.map((item) => (
+            {categoies.map((item) => (
               <MenuItem key={item.id} value={item.id}>
                 <ListItemText primary={item.title} />
               </MenuItem>

@@ -1,10 +1,9 @@
 import { Container, TextField } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, {  useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { OkButton } from "../../assets/Styles/Button/Button";
 import { TextInput } from "../../assets/Styles/TextField/TextField";
-import { AuthContext } from "../../store/auth-context";
-import { login } from "../../store/authSlice";
+import { login } from "../../store/reducers/auth-slice";
 import { useAppDispatch } from "../../store/hooks";
 
 const Login: React.FC = () => {

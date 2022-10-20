@@ -1,18 +1,17 @@
 import React, { useContext } from "react";
-import { QuestionContext } from "../../store/question-context";
 import ViewQuestionComponent from "./ViewQuestionComponent";
 
 import "./ListQuestionStyle.css";
-import { CategoryContext } from "../../store/category-context";
+import { useAppSelector } from "../../store/hooks";
 
 const ListQuestionComponent: React.FC = () => {
-  const questionCtx = useContext(QuestionContext);
-  const categoryCtx = useContext(CategoryContext);
+  const questions = useAppSelector((state) => state.question.items);
+  const tag = useAppSelector((state) => state.category.tag);
   return (
     <ul className="list-wrapper">
-      {questionCtx.items
+      {questions
         .filter((item) =>
-          item.tag.find((element) => element === categoryCtx.tag?.id)
+          item.tag.find((element) => element === tag?.id)
         )
         .map((filteredItem) => (
           <ViewQuestionComponent
